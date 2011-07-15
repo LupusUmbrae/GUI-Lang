@@ -1,4 +1,4 @@
-package builder;
+package com.moss.builder;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -7,11 +7,12 @@ import javax.swing.JPanel;
 
 public class Items {
 
-	properties.Applier compProp;
+	com.moss.properties.Applier compProp;
 
-	Items(properties.Applier compProp) {
+	Items(com.moss.properties.Applier compProp) {
 		this.compProp = compProp;
 	}
+
 	final String LABEL_ID = "label";
 	final String BUTTON_ID = "button";
 	final String PANEL_ID = "panel";
@@ -22,7 +23,7 @@ public class Items {
 			return properties(new JLabel(text), id);
 		} else if (type.matches(BUTTON_ID)) {
 			return properties(new JButton(text), id);
-		} else if (type.matches(PANEL_ID)){
+		} else if (type.matches(PANEL_ID)) {
 			return properties(new JPanel(), id);
 		}
 		return null;

@@ -1,6 +1,7 @@
-package tree;
+package com.moss.tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Tree {
@@ -9,6 +10,9 @@ public class Tree {
 	private String name = "";
 	private String bodyText = "";
 	private List<Tree> children;
+
+	// Any unmatched attributes can be put in here and looked at later
+	private HashMap<String, String> attributes = new HashMap<String, String>();
 
 	public Tree() {
 
@@ -28,9 +32,9 @@ public class Tree {
 			children.add(child);
 		}
 	}
-	
-	public Boolean hasChildren(){
-		return (this.children==null)?false:true;
+
+	public Boolean hasChildren() {
+		return (this.children == null) ? false : true;
 	}
 
 	private Tree findChild(int type, String match) {
@@ -112,7 +116,12 @@ public class Tree {
 			this.name = value;
 		} else if (key.matches("type") || key.matches("TYPE")
 				|| key.matches("Type")) {
-
+			this.type = value;
+		} else if (key.matches("text") || key.matches("TEXT")
+				|| key.matches("Text")) {
+			this.bodyText = value;
+		} else {
+			this.attributes.put(key, value);
 		}
 	}
 }

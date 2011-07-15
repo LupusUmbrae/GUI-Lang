@@ -1,4 +1,4 @@
-package properties;
+package com.moss.properties;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class Applier {
 	private final String LAYOUT_MANAGER_ID = "layoutManager";
 	private final String SIZE_ID = "size";
 	private final String POS_ID = "position";
-	//TODO: Add the rest
+	// TODO: Add the rest
 
 	// Object Styles
 	private final String LABEL_ID = "label";
@@ -70,7 +70,8 @@ public class Applier {
 	}
 
 	private JComponent specApply(JPanel c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(defaults);
+		HashMap<String, String> lDefaults = new HashMap<String, String>(
+				defaults);
 		lDefaults.putAll(styles.get(PANEL_ID));
 		// Layout Manager first.. *Gulp*
 		String manager = (style.get(LAYOUT_MANAGER_ID) == null) ? lDefaults
@@ -94,14 +95,15 @@ public class Applier {
 	}
 
 	private JComponent specApply(JButton c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(defaults);
+		HashMap<String, String> lDefaults = new HashMap<String, String>(
+				defaults);
 		lDefaults.putAll(styles.get(BUTTON_ID));
 		String size = (style.get(SIZE_ID) == null) ? lDefaults.get(SIZE_ID)
 				: style.get(SIZE_ID);
 		Integer sizeX = Integer.parseInt(size.split(",")[0]);
 		Integer sizeY = Integer.parseInt(size.split(",")[1]);
-		String pos = (style.get(POS_ID) == null) ? lDefaults.get(POS_ID) : style
-				.get(POS_ID);
+		String pos = (style.get(POS_ID) == null) ? lDefaults.get(POS_ID)
+				: style.get(POS_ID);
 		Integer posX = Integer.parseInt(pos.split(",")[0]);
 		Integer posY = Integer.parseInt(pos.split(",")[1]);
 		c.setBounds(posX, posY, sizeX, sizeY);
@@ -110,7 +112,8 @@ public class Applier {
 	}
 
 	private JComponent specApply(JLabel c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(defaults);
+		HashMap<String, String> lDefaults = new HashMap<String, String>(
+				defaults);
 		lDefaults.putAll(styles.get(LABEL_ID));
 
 		String size = (style.get(SIZE_ID) == null) ? lDefaults.get(SIZE_ID)

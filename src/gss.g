@@ -5,12 +5,12 @@ options {
 }
 
 @header {
-package parser;
+package com.moss.parser;
 import java.util.HashMap;
 }
 
 @lexer::header {
-package parser;
+package com.moss.parser;
 }
 
 @members {

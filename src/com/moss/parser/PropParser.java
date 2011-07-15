@@ -1,4 +1,4 @@
-package parser;
+package com.moss.parser;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,9 +8,9 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
 public class PropParser {
-	
-	
-	public HashMap<String, HashMap<String, String>> propParse() throws IOException {
+
+	public HashMap<String, HashMap<String, String>> propParse()
+			throws IOException {
 		String test = "c:\\style.txt";
 		gssLexer lex = new gssLexer(new ANTLRFileStream(test));
 		CommonTokenStream tokens = new CommonTokenStream(lex);

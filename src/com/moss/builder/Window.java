@@ -1,4 +1,4 @@
-package builder;
+package com.moss.builder;
 
 import javax.swing.JFrame;
 

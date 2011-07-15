@@ -1,19 +1,19 @@
-package builder;
+package com.moss.builder;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JComponent;
 
-import tree.Tree;
+import com.moss.tree.Tree;
 
 public class Builder {
 
 	public Builder(HashMap<String, HashMap<String, String>> styles) {
-		this.compProp = new properties.Applier(styles);
+		this.compProp = new com.moss.properties.Applier(styles);
 	}
 
-	private properties.Applier compProp;
+	private com.moss.properties.Applier compProp;
 
 	// Component ID's
 	final String JFRAME_ID = "window";

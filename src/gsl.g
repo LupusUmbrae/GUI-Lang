@@ -5,13 +5,13 @@ options {
 }
 
 @header {
-package parser;
+package com.moss.parser;
 import java.util.HashMap;
-import tree.Tree;
+import com.moss.tree.Tree;
 }
 
 @lexer::header {
-package parser;
+package com.moss.parser;
 }
 
 @members {
@@ -20,7 +20,7 @@ package parser;
 
 window returns [Tree window = new Tree();]
   :
-  OPEN WINDOW_TAG 
+  OPEN WINDOW_TAG
                   {
                    window.setType("window");
                   }

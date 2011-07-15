@@ -1,16 +1,14 @@
-package parser;
+package com.moss.parser;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
-import tree.Tree;
+import com.moss.tree.Tree;
 
 public class GuiParser {
-
 
 	@SuppressWarnings("rawtypes")
 	public Tree guiParse() throws IOException {
