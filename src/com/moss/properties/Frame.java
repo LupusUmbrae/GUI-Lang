@@ -1,11 +1,18 @@
 package com.moss.properties;
 
-import javax.swing.JFrame;
+import java.util.HashMap;
+
+import com.moss.builder.Window;
 
 public class Frame {
 
-	public JFrame apply(JFrame frame) {
-
-		return null;
+	public Window apply(Window window, HashMap<String, String> style) {
+		if(style.get("size") != null){
+			String size = (style.get("size"));
+			Integer sizeX = Integer.parseInt(size.split(",")[0]);
+			Integer sizeY = Integer.parseInt(size.split(",")[1]);
+			window.setSize(sizeX, sizeY);
+		}
+		return window;
 	}
 }

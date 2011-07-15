@@ -5,14 +5,20 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import com.moss.properties.Frame;
 import com.moss.tree.Tree;
 
 public class Builder {
 
 	public Builder(HashMap<String, HashMap<String, String>> styles) {
 		this.compProp = new com.moss.properties.Applier(styles);
+		if(styles.get(JFRAME_ID) !=null){
+			windowStyles = styles.get(JFRAME_ID);
+		}
 	}
 
+	
+	private HashMap<String, String> windowStyles = new HashMap<String, String>(); 
 	private com.moss.properties.Applier compProp;
 
 	// Component ID's
@@ -74,7 +80,9 @@ public class Builder {
 			Window window) {
 		System.out.println("Type: " + type);
 		if (type.matches(JFRAME_ID)) {
+			Frame windowStlye = new Frame();
 			window = new Window(id, name);
+			window = windowStlye.apply(window, windowStyles);
 		}
 		return window;
 	}

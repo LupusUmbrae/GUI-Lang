@@ -3,14 +3,16 @@ package com.moss.properties;
 import java.awt.Color;
 import java.util.HashMap;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.table.JTableHeader;
+import javax.swing.text.JTextComponent;
+
+import com.moss.properties.attributes.Bounds;
 
 public class Applier {
 	public HashMap<String, HashMap<String, String>> styles = new HashMap<String, HashMap<String, String>>();
-	// Create a defaults style, should be overridable in the gss
+	
+	// Create a defaults style, should be override able in the gss
 	public HashMap<String, String> defaults = new HashMap<String, String>();
 
 	public Applier(HashMap<String, HashMap<String, String>> styles) {
@@ -23,12 +25,6 @@ public class Applier {
 	private final String POS_ID = "position";
 	// TODO: Add the rest
 
-	// Object Styles
-	private final String LABEL_ID = "label";
-	private final String BUTTON_ID = "button";
-	private final String PANEL_ID = "panel";
-	// TODO: Add the rest
-
 	// Managers
 	private final String LM_ABSOLUTE = "absolute";
 	private final String LM_FLOW = "flow";
@@ -36,19 +32,33 @@ public class Applier {
 	private final String LM_BOX = "box";
 	private final String LM_GRID = "grid";
 	private final String LM_GROUP = "group";
-
 	// TODO: Add the rest
 
-	public JComponent apply(JComponent comp, String id) {
-		id = (id == null) ? "default" : id;
+	// Attribute Classes
+	private Bounds bounds = new Bounds();
+
+	public JComponent apply(JComponent comp, String type, String id, String name) {
 		HashMap<String, String> style = new HashMap<String, String>();
 
-		// Puts the ID specific styles into current styles, unless styles are
-		// null then uses defaults
-		style.putAll((styles.get(id) == null) ? defaults : styles.get(id));
-		// Do generic settings
-
+		// Build item specific styles
+		style.putAll(defaults);			
+		if(styles.get(type) != null){
+			style.putAll(styles.get(type));
+		}
+		if(styles.get(id) != null){
+			style.putAll(styles.get(id));	
+		}
+		
+		//TODO: Do generic settings
+		comp.setName(name);
+		
+		String size = (style.get(SIZE_ID));
+		String pos = (style.get(POS_ID));
+		comp = bounds.setBounds(comp, size, pos);
+		
+		
 		// Add specific settings
+		// TODO: Swap to type if/else
 		if (comp instanceof JPanel) {
 			comp = specApply((JPanel) comp, style);
 		} else if (comp instanceof JButton) {
@@ -56,6 +66,8 @@ public class Applier {
 		} else if (comp instanceof JLabel) {
 			comp = specApply((JLabel) comp, style);
 		}
+		
+		
 		return comp;
 	}
 
@@ -70,12 +82,10 @@ public class Applier {
 	}
 
 	private JComponent specApply(JPanel c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(
-				defaults);
-		lDefaults.putAll(styles.get(PANEL_ID));
+
+
 		// Layout Manager first.. *Gulp*
-		String manager = (style.get(LAYOUT_MANAGER_ID) == null) ? lDefaults
-				.get(LAYOUT_MANAGER_ID) : style.get(LAYOUT_MANAGER_ID);
+		String manager = (style.get(LAYOUT_MANAGER_ID));
 		if (manager.matches(LM_ABSOLUTE)) {
 			c.setLayout(null);
 		} else if (manager.matches(LM_BORDER)) {
@@ -95,36 +105,133 @@ public class Applier {
 	}
 
 	private JComponent specApply(JButton c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(
-				defaults);
-		lDefaults.putAll(styles.get(BUTTON_ID));
-		String size = (style.get(SIZE_ID) == null) ? lDefaults.get(SIZE_ID)
-				: style.get(SIZE_ID);
-		Integer sizeX = Integer.parseInt(size.split(",")[0]);
-		Integer sizeY = Integer.parseInt(size.split(",")[1]);
-		String pos = (style.get(POS_ID) == null) ? lDefaults.get(POS_ID)
-				: style.get(POS_ID);
-		Integer posX = Integer.parseInt(pos.split(",")[0]);
-		Integer posY = Integer.parseInt(pos.split(",")[1]);
-		c.setBounds(posX, posY, sizeX, sizeY);
 
 		return c;
 	}
 
 	private JComponent specApply(JLabel c, HashMap<String, String> style) {
-		HashMap<String, String> lDefaults = new HashMap<String, String>(
-				defaults);
-		lDefaults.putAll(styles.get(LABEL_ID));
 
-		String size = (style.get(SIZE_ID) == null) ? lDefaults.get(SIZE_ID)
-				: style.get(SIZE_ID);
-		Integer sizeX = Integer.parseInt(size.split(",")[0]);
-		Integer sizeY = Integer.parseInt(size.split(",")[1]);
-		String pos = (style.get(POS_ID) == null) ? lDefaults.get(POS_ID)
-				: style.get(POS_ID);
-		Integer posX = Integer.parseInt(pos.split(",")[0]);
-		Integer posY = Integer.parseInt(pos.split(",")[1]);
-		c.setBounds(posX, posY, sizeX, sizeY);
 		return c;
 	}
+
+	private JComponent specApply(JColorChooser c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JComboBox c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JFileChooser c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JInternalFrame c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JLayeredPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JList c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JMenuBar c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JOptionPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JPopupMenu c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JRootPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JScrollBar c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JScrollPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JSeparator c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JSlider c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JSpinner c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JSplitPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JTabbedPane c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JTable c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JTableHeader c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JTextComponent c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JToolBar c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JToolTip c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JTree c, HashMap<String, String> style) {
+
+		return c;
+	}
+
+	private JComponent specApply(JViewport c, HashMap<String, String> style) {
+
+		return c;
+	}
+
 }
