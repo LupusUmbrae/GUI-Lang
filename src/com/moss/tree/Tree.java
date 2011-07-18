@@ -138,6 +138,10 @@ public class Tree {
 			type = Type.LABEL;
 		}else if(str.matches("button")){
 			type = Type.BUTTON;
+		}else if(str.matches("window")){
+			type = Type.FRAME;
+		}else if(str.matches("panel")){
+			type = Type.PANEL;
 		}
 		return type;
 	}

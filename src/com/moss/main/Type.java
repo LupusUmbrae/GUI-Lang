@@ -1,6 +1,28 @@
 package com.moss.main;
 
 public enum Type {
- LABEL, BUTTON, FRAME, PANEL;
+	LABEL {
+		public String toString() {
+			return "label";
+		}
+	},
+
+	BUTTON {
+		public String toString() {
+			return "button";
+		}
+	},
+
+	FRAME {
+		public String toString() {
+			return "window";
+		}
+	},
+
+	PANEL {
+		public String toString() {
+			return "panel";
+		}
+	};
 
 }

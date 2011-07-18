@@ -64,6 +64,7 @@ ATTRIBUTES
     | 'position'
     | 'size'
     | 'layoutManager'
+    | 'backgroundColour'
   )
   ;
 
@@ -84,6 +85,7 @@ STRING_LITERAL
     'a'..'z'
     | 'A'..'Z'
     | '0'..'9'
+    | '#'
     | ','
   )+
   ;

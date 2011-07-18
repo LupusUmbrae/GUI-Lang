@@ -1,6 +1,5 @@
 package com.moss.properties;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -34,6 +33,7 @@ import javax.swing.text.JTextComponent;
 
 import com.moss.main.Type;
 import com.moss.properties.attributes.Bounds;
+import com.moss.properties.attributes.Colour;
 
 public class Applier {
 	public HashMap<String, HashMap<String, String>> styles = new HashMap<String, HashMap<String, String>>();
@@ -46,6 +46,7 @@ public class Applier {
 
 	private final String SIZE_ID = "size";
 	private final String POS_ID = "position";
+	private final String BACKGROUND_COLOUR = "backgroundColour";
 	// TODO: Add the rest
 	// Managers
 	private final String LM_ABSOLUTE = "absolute";
@@ -58,6 +59,7 @@ public class Applier {
 	// TODO: Add the rest
 	// Attribute Classes
 	private Bounds bounds = new Bounds();
+	private Colour colour = new Colour();
 
 	public Applier(HashMap<String, HashMap<String, String>> styles) {
 		this.styles = styles;
@@ -68,8 +70,8 @@ public class Applier {
 
 		// Build item specific styles
 		style.putAll(defaults);
-		if (styles.get(type) != null) {
-			style.putAll(styles.get(type));
+		if (styles.get(type.toString()) != null) {
+			style.putAll(styles.get(type.toString()));
 		}
 		if (styles.get(id) != null) {
 			style.putAll(styles.get(id));
@@ -77,10 +79,12 @@ public class Applier {
 
 		// TODO: Do generic settings
 		comp.setName(name);
-
+		comp.setBackground(colour.colour(style.get(BACKGROUND_COLOUR)));
+		
 		String size = (style.get(SIZE_ID));
 		String pos = (style.get(POS_ID));
 		comp = bounds.setBounds(comp, size, pos);
+		
 
 		// Add specific settings
 		switch (type) {
@@ -96,10 +100,6 @@ public class Applier {
 		}
 
 		return comp;
-	}
-
-	private Color getColor(String colorId) {
-		return null;
 	}
 
 	private void propDefaults() {
