@@ -7,7 +7,6 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -36,29 +35,29 @@ import com.moss.main.Type;
 import com.moss.properties.attributes.Bounds;
 import com.moss.properties.attributes.Colour;
 
-
 public class Applier {
 	public HashMap<String, HashMap<String, String>> styles = new HashMap<String, HashMap<String, String>>();
 
 	// Create a defaults style, should be override able in the gss
 	public HashMap<String, String> defaults = new HashMap<String, String>();
 
-	// Settings
+	// Key Literals from GSS
 	private final String LAYOUT_MANAGER_ID = "layoutManager";
-
 	private final String SIZE_ID = "size";
 	private final String POS_ID = "position";
 	private final String BACKGROUND_COLOUR = "backgroundColour";
+	private final String FOREGROUND_COLOUR = "foregroundColour";
 	// TODO: Add the rest
+
 	// Managers
 	private final String LM_ABSOLUTE = "absolute";
-
 	private final String LM_FLOW = "flow";
 	private final String LM_BORDER = "border";
 	private final String LM_BOX = "box";
 	private final String LM_GRID = "grid";
 	private final String LM_GROUP = "group";
 	// TODO: Add the rest
+
 	// Attribute Classes
 	private Bounds bounds = new Bounds();
 	private Colour colour = new Colour();
@@ -81,7 +80,9 @@ public class Applier {
 
 		// TODO: Do generic settings
 		comp.setName(name);
+		// Colours.. yes it is spelt right!
 		comp.setBackground(colour.colour(style.get(BACKGROUND_COLOUR)));
+		comp.setForeground(colour.colour(style.get(FOREGROUND_COLOUR)));
 
 		String size = (style.get(SIZE_ID));
 		String pos = (style.get(POS_ID));
@@ -89,12 +90,6 @@ public class Applier {
 
 		// Add specific settings
 		switch (type) {
-		case PANEL:
-			comp = specApply((JPanel) comp, style);
-			break;
-		case LABEL:
-			comp = specApply((JLabel) comp, style);
-			break;
 		case BUTTON:
 			comp = specApply((JButton) comp, style);
 			break;
@@ -113,6 +108,9 @@ public class Applier {
 		case INTERNAL_FRAME:
 			comp = specApply((JInternalFrame) comp, style);
 			break;
+		case LABEL:
+			comp = specApply((JLabel) comp, style);
+			break;
 		case LAYERED_PANE:
 			comp = specApply((JLayeredPane) comp, style);
 			break;
@@ -124,6 +122,9 @@ public class Applier {
 			break;
 		case OPTION_PANE:
 			comp = specApply((JOptionPane) comp, style);
+			break;
+		case PANEL:
+			comp = specApply((JPanel) comp, style);
 			break;
 		case POPUP_MENU:
 			comp = specApply((JPopupMenu) comp, style);

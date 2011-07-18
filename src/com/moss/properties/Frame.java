@@ -2,7 +2,7 @@ package com.moss.properties;
 
 import java.util.HashMap;
 
-import com.moss.builder.Window;
+import com.moss.builder.components.Window;
 
 public class Frame {
 

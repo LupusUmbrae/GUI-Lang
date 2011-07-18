@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import com.moss.builder.components.Window;
 import com.moss.main.Type;
 import com.moss.properties.Frame;
 import com.moss.tree.Tree;

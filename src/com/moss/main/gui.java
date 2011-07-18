@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 import com.moss.builder.Builder;
-import com.moss.builder.Window;
+import com.moss.builder.components.Window;
 import com.moss.parser.GuiParser;
 import com.moss.parser.PropParser;
 
