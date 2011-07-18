@@ -7,6 +7,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -34,6 +35,7 @@ import javax.swing.text.JTextComponent;
 import com.moss.main.Type;
 import com.moss.properties.attributes.Bounds;
 import com.moss.properties.attributes.Colour;
+
 
 public class Applier {
 	public HashMap<String, HashMap<String, String>> styles = new HashMap<String, HashMap<String, String>>();
@@ -80,11 +82,10 @@ public class Applier {
 		// TODO: Do generic settings
 		comp.setName(name);
 		comp.setBackground(colour.colour(style.get(BACKGROUND_COLOUR)));
-		
+
 		String size = (style.get(SIZE_ID));
 		String pos = (style.get(POS_ID));
 		comp = bounds.setBounds(comp, size, pos);
-		
 
 		// Add specific settings
 		switch (type) {
@@ -97,11 +98,86 @@ public class Applier {
 		case BUTTON:
 			comp = specApply((JButton) comp, style);
 			break;
+		case COLOR_CHOSER:
+			comp = specApply((JColorChooser) comp, style);
+			break;
+		case COMBO_BOX:
+			comp = specApply((JComboBox) comp, style);
+			break;
+		case FILE_CHOOSER:
+			comp = specApply((JFileChooser) comp, style);
+			break;
+		case FRAME:
+			// comp = specApply((JFrame) comp, style);
+			break;
+		case INTERNAL_FRAME:
+			comp = specApply((JInternalFrame) comp, style);
+			break;
+		case LAYERED_PANE:
+			comp = specApply((JLayeredPane) comp, style);
+			break;
+		case LIST:
+			comp = specApply((JList) comp, style);
+			break;
+		case MENU_BAR:
+			comp = specApply((JMenuBar) comp, style);
+			break;
+		case OPTION_PANE:
+			comp = specApply((JOptionPane) comp, style);
+			break;
+		case POPUP_MENU:
+			comp = specApply((JPopupMenu) comp, style);
+			break;
+		case ROOT_PANE:
+			comp = specApply((JRootPane) comp, style);
+			break;
+		case SCROLL_BAR:
+			comp = specApply((JScrollBar) comp, style);
+			break;
+		case SCROLL_PANE:
+			comp = specApply((JScrollPane) comp, style);
+			break;
+		case SEPARATOR:
+			comp = specApply((JSeparator) comp, style);
+			break;
+		case SLIDER:
+			comp = specApply((JSlider) comp, style);
+			break;
+		case SPINNER:
+			comp = specApply((JSpinner) comp, style);
+			break;
+		case SPLIT_PANE:
+			comp = specApply((JSplitPane) comp, style);
+			break;
+		case TABBED_PANE:
+			comp = specApply((JTabbedPane) comp, style);
+			break;
+		case TABLE:
+			comp = specApply((JTable) comp, style);
+			break;
+		case TABLE_HEADER:
+			comp = specApply((JTableHeader) comp, style);
+			break;
+		case TEXT_COMPONENT:
+			comp = specApply((JTextComponent) comp, style);
+			break;
+		case TOOL_BAR:
+			comp = specApply((JToolBar) comp, style);
+			break;
+		case TOOL_TIP:
+			comp = specApply((JToolTip) comp, style);
+			break;
+		case TREE:
+			comp = specApply((JTree) comp, style);
+			break;
+		case VIEWPORT:
+			comp = specApply((JViewport) comp, style);
+			break;
 		}
-
 		return comp;
 	}
 
+	@SuppressWarnings("unused")
 	private void propDefaults() {
 		// setup defaults
 		// TODO: I'm sure i need to do this but its just effort and i'd rather
