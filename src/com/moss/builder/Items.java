@@ -7,6 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.moss.main.Type;
+
 public class Items {
 
 	com.moss.properties.Applier compProp;
@@ -15,23 +17,21 @@ public class Items {
 		this.compProp = compProp;
 	}
 
-	final String LABEL_ID = "label";
-	final String BUTTON_ID = "button";
-	final String PANEL_ID = "panel";
 
-	public JComponent create(String type, String id, String name, String text) {
+	public JComponent create(Type type, String id, String name, String text) {
 		// create base component then apply properties
-		if (type.matches(LABEL_ID)) {
-			return properties(new JLabel(text), LABEL_ID, id, name);
-		} else if (type.matches(BUTTON_ID)) {
-			return properties(new JButton(text), BUTTON_ID, id, name);
-		} else if (type.matches(PANEL_ID)) {
-			return properties(new JPanel(), PANEL_ID, id, name);
+		switch(type){
+		case LABEL:
+			return properties(new JLabel(text), type, id, name);
+		case BUTTON:
+			return properties(new JButton(text), type, id, name);
+		case PANEL:
+			return properties(new JPanel(), type, id, name);
 		}
 		return null;
 	}
 
-	public JComponent properties(JComponent comp, String type, String id, String name) {
+	public JComponent properties(JComponent comp, Type type, String id, String name) {
 		// Add properties from gss file
 		return compProp.apply(comp, type, id, name);
 	}

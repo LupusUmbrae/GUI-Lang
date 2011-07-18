@@ -6,7 +6,6 @@ options {
 
 @header {
 package com.moss.parser;
-import java.util.HashMap;
 import com.moss.tree.Tree;
 }
 

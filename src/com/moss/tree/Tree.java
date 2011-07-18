@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.moss.main.Type;
+
 public class Tree {
-	private String type = "";
+	private Type type;
 	private String id = "";
 	private String name = "";
 	private String bodyText = "";
@@ -18,12 +20,6 @@ public class Tree {
 
 	}
 
-	public void create(String type, String id, String name) {
-		this.type = type;
-		this.id = id;
-		this.name = name;
-	}
-
 	public void addChild(Tree child) {
 		if (this.children == null) {
 			children = new ArrayList<Tree>();
@@ -33,8 +29,10 @@ public class Tree {
 		}
 	}
 
-	public Boolean hasChildren() {
-		return (this.children == null) ? false : true;
+	public void create(Type type, String id, String name) {
+		this.type = type;
+		this.id = id;
+		this.name = name;
 	}
 
 	private Tree findChild(int type, String match) {
@@ -58,6 +56,16 @@ public class Tree {
 		return null;
 	}
 
+	public String getBodyText() {
+		return bodyText;
+	}
+
+	public Tree getChildById(String id) {
+		Tree child;
+		child = findChild(1, id);
+		return child;
+	}
+	
 	// Getters
 
 	public Tree getChildByName(String name) {
@@ -66,36 +74,47 @@ public class Tree {
 		return child;
 	}
 
-	public Tree getChildById(String id) {
-		Tree child;
-		child = findChild(1, id);
-		return child;
-	}
-
-	public String getType() {
-		return type;
+	public List<Tree> getChildren() {
+		return children;
 	}
 
 	public String getId() {
 		return id;
 	}
+	
 
 	public String getName() {
 		return name;
 	}
 
-	public List<Tree> getChildren() {
-		return children;
+	public Type getType() {
+		return type;
 	}
 
-	public String getBodyText() {
-		return bodyText;
+	public Boolean hasChildren() {
+		return (this.children == null) ? false : true;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setBodyText(String bodyText) {
+		this.bodyText = bodyText;
 	}
 
+	public void setByString(String key, String value) {
+		key.toLowerCase();
+		if (key.matches("id") || key.matches("ID") || key.matches("Id")) {
+			this.id = value;
+		} else if (key.matches("name")) {
+			this.name = value;
+		} else if (key.matches("type")) {
+			//this.type = value;
+			this.type = stringToType(key);
+		} else if (key.matches("text")) {
+			this.bodyText = value;
+		} else {
+			this.attributes.put(key, value);
+		}
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -104,24 +123,22 @@ public class Tree {
 		this.name = name;
 	}
 
-	public void setBodyText(String bodyText) {
-		this.bodyText = bodyText;
+	public void setType(String type) {
+		this.type = stringToType(type);
 	}
 
-	public void setByString(String key, String value) {
-		if (key.matches("id") || key.matches("ID") || key.matches("Id")) {
-			this.id = value;
-		} else if (key.matches("name") || key.matches("NAME")
-				|| key.matches("Name")) {
-			this.name = value;
-		} else if (key.matches("type") || key.matches("TYPE")
-				|| key.matches("Type")) {
-			this.type = value;
-		} else if (key.matches("text") || key.matches("TEXT")
-				|| key.matches("Text")) {
-			this.bodyText = value;
-		} else {
-			this.attributes.put(key, value);
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	private Type stringToType(String str){
+		str.toLowerCase();
+		Type type = null;
+		if(str.matches("label")){
+			type = Type.LABEL;
+		}else if(str.matches("button")){
+			type = Type.BUTTON;
 		}
+		return type;
 	}
 }
